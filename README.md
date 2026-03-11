@@ -37,4 +37,4 @@ No build step or server required. Just open `index.html` in a browser.
 open index.html
 ```
 
-> Note: The File System Access API (for `scores.json` linking) requires Chrome or Edge.
+> **Saving scores:** By default scores are stored in `localStorage` and will be lost if the browser cache is cleared. To persist scores across sessions, click the **LINK scores.json** button in the leaderboard panel and select a local `scores.json` file — the game will read from and write to that file directly. Requires Chrome or Edge.
