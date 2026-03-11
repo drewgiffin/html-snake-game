@@ -8,6 +8,8 @@ This project is a proof of concept demonstrating the use of Claude Code — Anth
 
 The goal was to see how well Claude Code could handle building a game incrementally through conversational prompts, managing feature additions, UI polish, and game logic without losing context or introducing regressions.
 
+![Snake game in action](images/in-game.png)
+
 ## Features
 
 - Classic snake gameplay with WASD and arrow key controls
