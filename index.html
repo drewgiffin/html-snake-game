@@ -292,6 +292,15 @@
     let snakeColor = activeSkin.hex;
 
     // Build swatches
+    let pendingColor = snakeColor;
+
+    function previewOverlay(hex) {
+      const skinBox = document.getElementById('skin-box');
+      skinBox.style.borderColor = hex;
+      skinBox.querySelector('h2').style.color = hex;
+      document.getElementById('btn-play').style.background = hex;
+    }
+
     const swatchContainer = document.getElementById('skin-swatches');
     SKINS.forEach(skin => {
       const el = document.createElement('div');
@@ -302,11 +311,8 @@
       el.addEventListener('click', () => {
         document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
         el.classList.add('selected');
-        activeSkin = skin;
-        snakeColor = skin.hex;
-        localStorage.setItem(SKIN_KEY, snakeColor);
-        applyColor(snakeColor);
-        render();
+        pendingColor = skin.hex;
+        previewOverlay(pendingColor);
       });
       swatchContainer.appendChild(el);
     });
@@ -317,20 +323,27 @@
       canvas.style.borderColor = hex;
       canvas.style.boxShadow = `0 0 20px ${hex}55`;
       document.querySelector('h1').style.color = hex;
-      document.getElementById('btn-play').style.background = hex;
       document.documentElement.style.setProperty('--snake-color', hex);
       document.documentElement.style.setProperty('--accent-color', accent);
     }
 
-    let skinOpenedOnce = true;
-
     function openSkinOverlay() {
-      document.getElementById('btn-play').textContent = skinOpenedOnce ? 'DONE' : 'PLAY';
+      pendingColor = snakeColor;
+      document.querySelectorAll('.swatch').forEach(s => {
+        s.classList.toggle('selected', s.title === (SKINS.find(sk => sk.hex === snakeColor)?.label));
+      });
+      previewOverlay(snakeColor);
       document.getElementById('skin-overlay').classList.remove('hidden');
     }
 
     function closeSkinOverlay() {
-      skinOpenedOnce = true;
+      if (pendingColor !== snakeColor) {
+        activeSkin = SKINS.find(s => s.hex === pendingColor) || SKINS[0];
+        snakeColor = pendingColor;
+        localStorage.setItem(SKIN_KEY, snakeColor);
+        applyColor(snakeColor);
+        render();
+      }
       document.getElementById('skin-overlay').classList.add('hidden');
     }
 
@@ -339,6 +352,7 @@
 
     // Apply initial color to UI
     applyColor(snakeColor);
+    previewOverlay(snakeColor);
 
     let snake, dir, nextDir, food, score, gameOver, started, loop;
     let waitingForInput = false; // block keypresses while modal is open
