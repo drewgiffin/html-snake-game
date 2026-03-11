@@ -1,12 +1,12 @@
 # HTML Snake Game
 
-A browser-based Snake game built entirely in a single `index.html` file.
+A browser-based Snake game built with [Claude Code](https://claude.ai/claude-code).
 
 ## About
 
-This project is a proof of concept demonstrating the use of [Claude Code](https://claude.ai/claude-code) — Anthropic's AI-powered CLI — to build a functional, polished HTML game through natural language conversation. No code was written by hand. Every feature was implemented by describing it to Claude Code and iterating on the result.
+This project is a proof of concept demonstrating the use of Claude Code — Anthropic's AI-powered CLI — to build a functional, polished HTML game through natural language conversation. No code was written by hand. Every feature was implemented by describing it to Claude Code and iterating on the result.
 
-The goal was to see how far a single-file browser game could be taken using only conversational prompts, and how well Claude Code could handle incremental feature additions, UI polish, and game logic without losing context or introducing regressions.
+The goal was to see how well Claude Code could handle building a game incrementally through conversational prompts, managing feature additions, UI polish, and game logic without losing context or introducing regressions.
 
 ## Features
 
