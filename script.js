@@ -338,6 +338,8 @@ function init() {
   document.getElementById('message').textContent = 'Press WASD or arrow keys to start';
 }
 
+const FRUITS = ['🍎','🍊','🍋','🍇','🍓','🍒','🍑','🥝','🍉','🍌','🫐','🍍'];
+
 function placeFood() {
   do {
     food = {
@@ -345,6 +347,7 @@ function placeFood() {
       y: Math.floor(Math.random() * ROWS),
     };
   } while (snake.some(s => s.x === food.x && s.y === food.y));
+  food.emoji = FRUITS[Math.floor(Math.random() * FRUITS.length)];
 }
 
 function updateScore() {
@@ -392,14 +395,11 @@ function render() {
     for (let y = 0; y < ROWS; y++)
       ctx.fillRect(x * GRID + GRID / 2 - 1, y * GRID + GRID / 2 - 1, 2, 2);
 
-  // Food
-  ctx.fillStyle = '#f87171';
-  ctx.shadowColor = '#f87171';
-  ctx.shadowBlur = 10;
-  ctx.beginPath();
-  ctx.arc(food.x * GRID + GRID / 2, food.y * GRID + GRID / 2, GRID / 2 - 2, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowBlur = 0;
+  // Food — random fruit emoji
+  ctx.font = `${GRID - 4}px serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(food.emoji, food.x * GRID + GRID / 2, food.y * GRID + GRID / 2);
 
   // Snake
   const r = parseInt(snakeColor.slice(1, 3), 16);
